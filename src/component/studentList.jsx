@@ -4,17 +4,33 @@ import { List, Avatar, Table } from "antd";
 class StudentList extends Component {
 	constructor(props) {
 		super(props);
+		this.state = {
+			students: [],
+		};
 	}
+	getAllmessages = async () => {
+		try {
+			let response = await fetch("http://localhost:740/getallmessages", {
+				method: "GET",
+			});
+			let data = await response.json();
+			this.setState({ students: data });
+			console.log("heyy");
+		} catch (e) {
+			console.log(e);
+		}
+	};
+
 	columns = [
 		{
 			title: "Nom",
-			dataIndex: "nom",
-			key: "nom",
+			dataIndex: "Nom",
+			key: "Nom",
 		},
 		{
 			title: "Prenom",
-			dataIndex: "prenom",
-			key: "prenom",
+			dataIndex: "Prenom",
+			key: "Prenom",
 		},
 		{
 			title: "Date",
@@ -23,12 +39,15 @@ class StudentList extends Component {
 		},
 	];
 
-	data = this.props.data;
+	componentDidMount() {
+		this.getAllmessages();
+	}
+
 	render() {
-		console.log(this.props.data);
+		console.log(this.state.students);
 		return (
 			<div>
-				<Table dataSource={this.dataSource} columns={this.columns} />
+				<Table dataSource={this.state.students} columns={this.columns} />
 			</div>
 		);
 	}
