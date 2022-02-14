@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import "./App.css";
 import StudentList from "./component/studentList";
 import "antd/dist/antd.css";
-import { Button } from "antd";
+
 class App extends Component {
 	render() {
 		let date = new Date();
